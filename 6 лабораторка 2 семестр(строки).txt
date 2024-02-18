@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+#include <windows.h>
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    string s;
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    getline(cin, s);
+    string str1 = s;
+    string str2 = s;
+    string str3 = s;
+    string str4 = s;
+
+    for (int i = 0; i < size(str1); i++) {
+        int start = 4;
+        for (int j = 0; j < size(str1) / 14; j++) {
+            str1.erase(start, 10);
+            str1.insert(start, 10, ' ');
+            start += 14;
+            i += 14;
+        }
+    }
+    for (int i = 0; i < size(str2); i++) {
+        int start = 0;
+        for (int j = 0; j < size(str2) / 14; j++) {
+            str2.erase(start, 4);
+            str2.insert(start, 4, ' ');
+            start += 6;
+            i += 6;
+            str2.erase(start, 6);
+            str2.insert(start, 6, ' ');
+            start += 8;
+            i += 8; 
+        }
+        
+    }
+    for (int i = 0; i < size(str3); i++) {
+        int start = 0;
+        str3.erase(start, 6);
+        str3.insert(start, 6, ' ');
+        start += 8;
+        i += 8;
+        for (int j = 0; j < size(str3) / 14; j++) {
+            str3.erase(start, 2);
+            str3.insert(start, 2, ' ');
+            start += 4;
+            i += 4;
+            str3.erase(start, 8);
+            str3.insert(start, 8, ' ');
+            start += 10;
+            i += 10;
+        }
+    }
+    for (int i = 0; i < size(str4); i++) {
+        int start = 0;
+        str4.erase(start, 8);
+        str4.insert(start, 8, ' ');
+        start += 10;
+        i += 10;
+        for (int j = 0; j < size(str4) / 14; j++) {
+            
+            str4.erase(start, 12);
+            str4.insert(start, 12, ' ');
+            start += 14;
+            i += 14;
+        }
+    }
+    cout << str1 << endl;
+    cout << str2 << endl;
+    cout << str3 << endl;
+    cout << str4;
+    return 0;
+}
