@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+void hanoi(int n, int start, int end) {
+    if (n == 1) {
+        cout << "Перемещение 1 диска с " << start << " на " << end << endl;
+    } else {
+        int temp = 6 - start - end;
+        hanoi(n - 1, start, temp);
+        cout << "Перемещение " << n << " диска с " << start << " на " << end << endl;
+        hanoi(n - 1, temp, end);
+    }
+}
+
+int main() {
+    int n, start, end;
+    setlocale(LC_ALL, "Ru");
+    cout << "Введите количество колец: ";
+    cin >> n;
+    cout << "Введите номер начального стержня: ";
+    cin >> start;
+    cout << "Введите номер конечного стержня: ";
+    cin >> end;
+    hanoi(n, start, end);
+    return 0;
+}
