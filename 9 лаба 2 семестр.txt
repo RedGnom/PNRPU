@@ -1,0 +1,50 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <windows.h>
+#include <map>
+
+using namespace std;
+int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    setlocale(LC_ALL, "RU");
+    ifstream f1("F1.txt");
+    ofstream f2("F2.txt");
+    string s;
+    int max = 0;
+    int count = 0;
+    int number = 0;
+    char a[]{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    while (getline(f1, s)) {
+        istringstream iss(s);
+        string word;
+        map<string, int> k;
+        while (iss >> word) {
+            int current = 0;
+            k[word]++;
+            count++;
+            for (int i = 0; i < word.length(); i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (word[i] == a[j]) {
+                        current++;
+                    }
+                }
+            }
+            if (current > max) {
+                max = current;
+                number = count;
+            }
+        }
+        for (const auto& pair : k) {
+            if (pair.second >= 2) {
+                f2 << s << endl;
+                break;
+            }
+        }
+    }
+    cout << max << endl;
+    cout << number;
+  
+    return 0;
+}
