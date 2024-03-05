@@ -1,0 +1,119 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template <typename T>
+struct Node {
+    T key;
+    Node* next;
+};
+
+template <typename T>
+Node<T>* createNode(T key) {
+    Node<T>* newNode = new Node<T>();
+
+    newNode->key = key;
+    newNode->next = nullptr;
+    return newNode;
+}
+
+template <typename T>
+Node<T>* insertNode(Node<T>* head, T key, int position) {
+    Node<T>* newNode = createNode(key);
+    if (position == 0) {
+        newNode->next = head;
+        head = newNode;
+    }
+    else {
+        Node<T>* prev = nullptr;
+        Node<T>* cur = head;
+        int i = 0;
+
+        while (cur != nullptr && i < position) {
+            prev = cur;
+            cur = cur->next;
+            i++;
+        }
+
+        if (i != position) {
+            cout << "Position out of range\n";
+            delete newNode;
+            return head;
+        }
+        prev->next = newNode;
+        newNode->next = cur;
+    }
+    return head;
+}
+//int index = 0;
+//int& id = index;
+template <typename T>
+Node<T>* deleteNodeByKey(Node<T>* head, T key) {
+    Node<T>* temp = head;
+    Node<T>* prev = nullptr;
+
+    if (temp != nullptr && temp->key == key) {
+        head = temp->next;
+        delete temp;
+        return head;
+    }
+
+    while (temp != nullptr && temp->key != key) {
+        prev = temp;
+        temp = temp->next;
+        //id++;
+    }
+
+    if (temp == nullptr) {
+        cout << "Key not found\n";
+        return head;
+    }
+
+    prev->next = temp->next;
+    delete temp;
+    return head;
+}
+
+template <typename T>
+void printList(Node<T>* head) {
+    while (head) {
+        cout << head->key << " ";
+        head = head->next;
+    }
+    cout << "\n";
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    Node<string>* head = nullptr;
+    int n;
+    cout << "Enter the number of strings: ";
+    cin >> n;
+    cin.ignore();
+    for (int i = 0; i < n; i++) {
+        string s;
+        cout << "Enter string " << i + 1 << ": ";
+        getline(cin, s);
+        head = insertNode(head, s, i);
+    }
+    printList(head);
+    string g = "delete";
+    deleteNodeByKey(head, g);
+    printList(head);
+    cout << "Cколько элементов нужно добавить";
+    int number, count;
+    cin >> number >> count;
+    /*number = id;*/
+    
+    cin.ignore();
+    for (int i = 0; i < count; i++) {
+        string s;
+        cout << "Введите строки " << i + 1 << ": ";
+        getline(cin, s);
+        head = insertNode(head, s, number-1);
+        number++;
+    }
+    printList(head);
+    
+}
