@@ -1,0 +1,110 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template <typename T>
+struct Node
+{
+	T data;
+	Node* next;
+};
+
+template <typename T>
+struct Stack {
+	Node<T>* head = nullptr;
+	int size = 0;
+};
+
+template <typename T>
+void push(Stack<T>& q, T a) {
+	Node<T>* new_node = new Node<T>;
+	new_node->data = a;
+	new_node->next = q.head;
+	q.head = new_node;
+	q.size++;
+}
+
+template <typename T>
+void pop(Stack<T>& q) {
+	Node<T>* delete_node = q.head;
+	q.head = delete_node->next;
+	delete delete_node;
+	q.size--;
+}
+
+template <typename T>
+T top(Stack<T>& q) {
+	return q.head->data;
+}
+
+template <typename T>
+void print(Stack<T>& q1, Stack<T>& q2) {
+	int p = q1.size;
+	if (p == 0) cout << "Стек пуст";
+	else {
+		for (int i = 0; i < p; i++) {
+			cout << top(q1) << ' ';
+			push(q2, top(q1));
+			pop(q1);
+		}
+	}
+	cout << '\n';
+}
+
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	int n;
+	Stack<string> q1, q2;
+	cout << "Введите количество элементов в стеке:";
+	cin >> n;
+	cout << "Вводите элементы стека:";
+	cin.ignore();
+	for (int i = 0; n > i; i++) {
+		string a;
+		getline(cin, a);
+		push(q1, a);
+	}
+	cout << "Cтек: ";
+	print(q1, q2);
+	cout << "Введите ключ для удаления: ";
+	string key;
+	getline(cin, key);
+	for (int i = 0; i < n; i++) {
+		if (top(q2) == key) {
+			pop(q2);
+		}
+		else {
+			push(q1, top(q2));
+			pop(q2);
+		}
+	}
+	cout << "Стек после удаления: ";
+	print(q1, q2);
+	cout << "Введите количество новых элементов: ";
+	int k, s;
+	cin >> k;
+	cout << "C какого номера их вставить? ";
+	cin >> s;
+	cin.ignore();
+	n = q2.size;
+	for (int i = 0; i < n - s + 1; i++) {
+		push(q1, top(q2));
+		pop(q2);
+	}
+	cout << "Вводите новые элементы: ";
+	for (int i = 0; i < k; i++) {
+		string a;
+		getline(cin, a);
+		push(q1, a);
+	}
+	while (q2.head != nullptr) {
+		push(q1, top(q2));
+		pop(q2);
+	}
+	cout << "Стек после добавления: ";
+	print(q1, q2);
+}
+
+
