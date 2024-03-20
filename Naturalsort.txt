@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Функция для слияния двух отсортированных массивов
+void merge(vector<int>& arr, int left, int middle, int right) {
+    int n1 = middle - left + 1;
+    int n2 = right - middle;
+
+    vector<int> leftArr(n1);
+    vector<int> rightArr(n2);
+
+    for (int i = 0; i < n1; ++i)
+        leftArr[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j)
+        rightArr[j] = arr[middle + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (leftArr[i] <= rightArr[j])
+            arr[k++] = leftArr[i++];
+        else
+            arr[k++] = rightArr[j++];
+    }
+
+    while (i < n1)
+        arr[k++] = leftArr[i++];
+    while (j < n2)
+        arr[k++] = rightArr[j++];
+}
+
+// Рекурсивная функция сортировки естественным слиянием
+void naturalMergeSort(vector<int>& arr, int left, int right) {
+    if (left < right) {
+        int middle = left + (right - left) / 2;
+        naturalMergeSort(arr, left, middle);
+        naturalMergeSort(arr, middle + 1, right);
+        merge(arr, left, middle, right);
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    vector<int> arr = { 12, 9, 13, 5, 15, 7,67, 87, 43, 2, 64,19, 30 };
+    int n = arr.size();
+
+    cout << "Исходный массив: ";
+    for (int num : arr)
+        cout << num << " ";
+    cout << endl;
+
+    naturalMergeSort(arr, 0, n - 1);
+
+    cout << "Отсортированный массив: ";
+    for (int num : arr)
+        cout << num << " ";
+    cout << endl;
+
+    return 0;
+}
