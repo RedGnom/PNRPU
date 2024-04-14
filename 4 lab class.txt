@@ -1,0 +1,61 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Person {
+protected:
+	string name;
+	int age;
+public:
+	string setname(const Person &other) {
+		this->name = other.name;
+	}
+	int setage(const Person& other) {
+		this->age = other.age;
+	}
+	
+};
+class student : Person {
+	string subject;
+	int mark;
+public:
+	student(string name, int mark, int age, string subject) {
+		this->name = name;
+		this->mark = mark;
+		this->age = age;
+		this->subject = subject;
+
+	}
+	string setsubject(const student& other) {
+		this->subject = other.subject;
+	}
+	int setage(const student& other) {
+		this->mark = other.mark;
+	}
+	bool bad_mark() {
+		if (this->mark != 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	void print() {
+		if (bad_mark()) {
+			cout << "Ученик под именем " << this->name << " Возраста: " << this->age << " Получил оценку: "
+				<< mark << " По предмету: " << subject << endl;
+		}
+		else {
+			cout << "Ученик под именем " << this->name << " Возраста: " << this->age << " Получил неудовлетворительную оценку: "
+				<< mark << " По предмету: " << subject << endl;
+		}
+	}
+
+};
+
+int main() {
+	system("chcp 1251>nul");
+	student student_one("Боря Пивозавров ", 2, 16, " Матан ");
+	student_one.print();
+}
