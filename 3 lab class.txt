@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+class Pair {
+	int first;
+	double second;
+public:
+	Pair(int first, double second) {
+		this->first = first;
+		this->second = second;
+	}
+
+	void print() {
+		cout << "Первое число - " << first << ": " << "Второе число - " << second << endl;
+	}
+	Pair operator - (const Pair& a) {
+		return Pair(first - a.first, second - a.second);
+	}
+	void operator + (int a) {
+		cout << "Первое число - " << this->first + a << ": " << "Второе число - " << this->second << endl;
+	}
+	void operator + (double a) {
+		cout << "Первое число - " << this->first << ": " << "Второе число - " << this->second + a << endl;
+	}
+};
+#include "pair.cpp";
+
+int main() {
+	setlocale(LC_ALL, "RU");
+	Pair a(3, 2.5);
+	Pair b(5, 7.5);
+	Pair c = a - b;
+	a + 4;
+	c.print();
+	a.print();
+}
