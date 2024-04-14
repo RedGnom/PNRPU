@@ -1,0 +1,24 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class progression{
+	double first;
+	int second;
+public:
+	progression(double first, int second) {
+		this->first = first;
+		this->second = second;
+	}
+	double element(int j) {
+		double elem;
+		elem = first * pow(second, j);
+		return elem;
+	}
+};
+
+int main() {
+	setlocale(LC_ALL, "RU");
+	progression elem1(5.15, 2);
+	cout << elem1.element(5);	
+}
